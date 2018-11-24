@@ -1,0 +1,28 @@
+---
+- hosts: pi
+  tasks:
+    - name: install dependent module
+      apt: 
+        name: "{{ packages }}"
+        update_cache: yes
+        cache_valid_time: 3600
+      vars:
+        packages:
+        - bluez
+        - dnsutils
+        - sqlite3
+        - libcrypto++-dev
+        - libcrypto++-utils
+        - libcurl4-openssl-dev
+      become: true
+    - name: download mesh package
+      get_url:
+        url: "{{ mesh_url }}"
+        dest: /tmp/mesh_1.0.0_armhf.deb
+      become: true
+    - name: install mesh package
+      apt:
+        deb: /tmp/mesh_1.0.0_armhf.deb
+      become: true
+    - name: start mesh
+      command: mesh start
