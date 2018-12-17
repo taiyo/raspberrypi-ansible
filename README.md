@@ -2,6 +2,13 @@
 
 RaspberryPiの設定をAnsibleのタスクで実施。
 
+## update
+
+パッケージをupdateする。
+```
+ansible-playbook -i hosts update.yaml
+```
+
 ## Dockerのインストール
 
 docker、docker-composeをインストールする。
